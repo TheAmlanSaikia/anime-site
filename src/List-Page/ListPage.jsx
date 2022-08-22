@@ -40,6 +40,7 @@ const ListPage = () => {
          searchedData.map((item) => {
             return (
               <AnimeCard
+                id={item.mal_id}
                 key={item.mal_id}
                 title={item.title}
                 jTitle={item.title_japanese}

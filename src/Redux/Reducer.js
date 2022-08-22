@@ -1,4 +1,4 @@
-import { ADD_FILTER, RESET_FILTER, SEARCH_FILTER, WATCH_LATER } from "./Types";
+import { ADD_FILTER, DELETE_WATCHLATER, RESET_FILTER, SEARCH_FILTER, WATCH_LATER } from "./Types";
 
 const initialState = {
   checkBoxValue: {
@@ -37,6 +37,13 @@ export const reducerFunction = (state = initialState, action) => {
         ...state,
         saveToLater: [...state.saveToLater, action.payload],
       };
+    case DELETE_WATCHLATER:
+        return {
+            ...state,
+            saveToLater: state.saveToLater.filter((item) => item.id !== action.payload.id ) 
+        }
+
+
     default:
       return state;
   }
