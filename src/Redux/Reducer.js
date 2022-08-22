@@ -24,7 +24,14 @@ export const reducerFunction = (state = initialState, action) => {
     case RESET_FILTER:
       return {
         ...state,
-        checkBoxValue: "",
+        checkBoxValue: {
+            Action: false,
+            Drama: false,
+            Comedy: false,
+            Adventure: false,
+            Sports: false,
+            Avant : false
+          },
         searchQuery: "",
       };
     case SEARCH_FILTER:

@@ -18,8 +18,8 @@ export default function AnimeCard(props) {
   const watchLaterAnime = useSelector((state) => state.saveToLater);
 
   localStorage.setItem("Watchlater", JSON.stringify(watchLaterAnime));
-  
-  const storageItems = JSON.parse(localStorage.getItem('Watchlater') || []);
+
+  const storageItems = JSON.parse(localStorage.getItem("Watchlater") || []);
 
   return (
     <Card sx={{ width: 300, backgroundColor: "#FAF9F6" }}>
@@ -38,18 +38,16 @@ export default function AnimeCard(props) {
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
-       { storageItems && storageItems.some(item => item.id === props.id)?( 
-        <IconButton aria-label='add to favorites' onClick={deleteWatchLater}>
-          <FavoriteIcon style={{ color: "red" }} />
-        </IconButton>
-       ):(
-        <IconButton aria-label='add to favorites' onClick={addWatchLater}>
-          <FavoriteIcon />
-        </IconButton>
-       )
-       }
+        {storageItems && storageItems.some((item) => item.id === props.id) ? (
+          <IconButton aria-label='add to favorites' onClick={deleteWatchLater}>
+            <FavoriteIcon style={{ color: "red" }} />
+          </IconButton>
+        ) : (
+          <IconButton aria-label='add to favorites' onClick={addWatchLater}>
+            <FavoriteIcon />
+          </IconButton>
+        )}
       </CardActions>
-      {console.log("Locacl Storage Items" ,storageItems)}
     </Card>
   );
 }

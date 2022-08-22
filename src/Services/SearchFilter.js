@@ -6,7 +6,6 @@
  */
 
 export const SearchFilter=(lists,query)=>{
-    console.log(lists, query)
     if( query.length <= 0){
         return lists;
 

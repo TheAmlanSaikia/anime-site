@@ -7,7 +7,7 @@ import IconButton from "@mui/material/IconButton";
 import InputBase from "@mui/material/InputBase";
 import { Checkbox, FormControlLabel, FormGroup } from "@mui/material";
 import FilterAltOffIcon from '@mui/icons-material/FilterAltOff';
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addCheckboxFilter, resetFilters, searchFilters } from "../../Redux/Action";
 import SearchIcon from "@mui/icons-material/Search";
 // import Badge from "@mui/material/Badge";
@@ -165,6 +165,8 @@ export default function PrimarySearchAppBar() {
   dispatch(searchFilters(event.target.value));
  }
 
+ const checkFilters = useSelector(state => state.checkBoxValue);
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position='static'>
@@ -186,6 +188,7 @@ export default function PrimarySearchAppBar() {
               <FormControlLabel
                 control={
                   <Checkbox
+                    checked={checkFilters.Action}
                      value={'Action'}
                      onChange={handleChange}
                      inputProps={{ "aria-label": "controlled" }}
@@ -199,6 +202,7 @@ export default function PrimarySearchAppBar() {
               <FormControlLabel
                 control={
                   <Checkbox
+                     checked={checkFilters.Sports}
                      value={'Sports'}
                      onChange={handleChange}
                     inputProps={{ "aria-label": "controlled" }}
@@ -211,6 +215,7 @@ export default function PrimarySearchAppBar() {
               <FormControlLabel
                 control={
                   <Checkbox
+                  checked={checkFilters.Adventure}
                     value={'Adventure'}
                      onChange={handleChange}
                     inputProps={{ "aria-label": "controlled" }}
@@ -223,6 +228,7 @@ export default function PrimarySearchAppBar() {
               <FormControlLabel
                 control={
                   <Checkbox
+                  checked={checkFilters.Drama}
                     value={'Drama'}
                     onChange={handleChange}
                     inputProps={{ "aria-label": "controlled" }}
@@ -235,6 +241,7 @@ export default function PrimarySearchAppBar() {
               <FormControlLabel
                 control={
                   <Checkbox
+                    checked={checkFilters.Comedy}
                      value={'Comedy'}
                      onChange={handleChange}
                     inputProps={{ "aria-label": "controlled" }}
@@ -247,6 +254,7 @@ export default function PrimarySearchAppBar() {
               <FormControlLabel
                 control={
                   <Checkbox
+                   checked={checkFilters.Avant}
                     value={'Avant'}
                     onChange={handleChange}
                     inputProps={{ "aria-label": "controlled" }}
