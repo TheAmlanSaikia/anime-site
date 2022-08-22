@@ -7,8 +7,6 @@ import CardActions from '@mui/material/CardActions';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import FavoriteIcon from '@mui/icons-material/Favorite';
-import ShareIcon from '@mui/icons-material/Share';
-
 
 // const ExpandMore = styled((props) => {
 //   const { expand, ...other } = props;
@@ -27,7 +25,6 @@ export default function AnimeCard(props) {
 //   const handleExpandClick = () => {
 //     setExpanded(!expanded);
 //   };
- console.log(props);
   return (
     <Card sx={{ width: 300, backgroundColor:'#FAF9F6' }}>
       <CardHeader
@@ -41,8 +38,9 @@ export default function AnimeCard(props) {
       />
       <CardContent>
         <Typography variant="body2" color="text.secondary">
-          <h5>{props.jTitle}</h5> 
-          <h5>Rating:{props.rating}</h5>
+          <h3>{props.jTitle}</h3> 
+          <h4>Rating:{props.rating}</h4>
+          <h4>Genre:{props.genre}</h4>
         </Typography>
       </CardContent>
        <CardActions disableSpacing>

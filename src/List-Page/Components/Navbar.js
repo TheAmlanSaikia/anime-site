@@ -1,57 +1,60 @@
-import * as React from 'react';
-import { styled, alpha } from '@mui/material/styles';
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
-import InputBase from '@mui/material/InputBase';
-import Badge from '@mui/material/Badge';
-import MenuItem from '@mui/material/MenuItem';
-import Menu from '@mui/material/Menu';
-import MenuIcon from '@mui/icons-material/Menu';
-import SearchIcon from '@mui/icons-material/Search';
-import AccountCircle from '@mui/icons-material/AccountCircle';
-import MailIcon from '@mui/icons-material/Mail';
-import NotificationsIcon from '@mui/icons-material/Notifications';
-import MoreIcon from '@mui/icons-material/MoreVert';
+import * as React from "react";
+import { styled, alpha } from "@mui/material/styles";
+import AppBar from "@mui/material/AppBar";
+import Box from "@mui/material/Box";
+import Toolbar from "@mui/material/Toolbar";
+import IconButton from "@mui/material/IconButton";
+import InputBase from "@mui/material/InputBase";
+import Badge from "@mui/material/Badge";
+import MenuItem from "@mui/material/MenuItem";
+import Menu from "@mui/material/Menu";
+import SearchIcon from "@mui/icons-material/Search";
+import AccountCircle from "@mui/icons-material/AccountCircle";
+import MailIcon from "@mui/icons-material/Mail";
+import NotificationsIcon from "@mui/icons-material/Notifications";
+import MoreIcon from "@mui/icons-material/MoreVert";
+import { Checkbox, FormControlLabel, FormGroup } from "@mui/material";
+import FilterAltOffIcon from '@mui/icons-material/FilterAltOff';
+import { useDispatch } from "react-redux";
+import { addCheckboxFilter, resetFilters, searchFilters } from "../../Redux/Action";
 
-const Search = styled('div')(({ theme }) => ({
-  position: 'relative',
+
+const Search = styled("div")(({ theme }) => ({
+  position: "relative",
   borderRadius: theme.shape.borderRadius,
   backgroundColor: alpha(theme.palette.common.white, 0.15),
-  '&:hover': {
+  "&:hover": {
     backgroundColor: alpha(theme.palette.common.white, 0.25),
   },
   marginRight: theme.spacing(2),
   marginLeft: 0,
-  width: '100%',
-  [theme.breakpoints.up('sm')]: {
+  width: "100%",
+  [theme.breakpoints.up("sm")]: {
     marginLeft: theme.spacing(3),
-    width: 'auto',
+    width: "auto",
   },
 }));
 
-const SearchIconWrapper = styled('div')(({ theme }) => ({
+const SearchIconWrapper = styled("div")(({ theme }) => ({
   padding: theme.spacing(0, 2),
-  height: '100%',
-  position: 'absolute',
-  pointerEvents: 'none',
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
+  height: "100%",
+  position: "absolute",
+  pointerEvents: "none",
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
 }));
 
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
-  color: 'black',
-  '& .MuiInputBase-input': {
+  color: "black",
+  "& .MuiInputBase-input": {
     padding: theme.spacing(1, 1, 1, 0),
     // vertical padding + font size from searchIcon
     paddingLeft: `calc(1em + ${theme.spacing(4)})`,
-    transition: theme.transitions.create('width'),
-    width: '100%',
-    [theme.breakpoints.up('md')]: {
-      width: '20ch',
+    transition: theme.transitions.create("width"),
+    width: "100%",
+    [theme.breakpoints.up("md")]: {
+      width: "20ch",
     },
   },
 }));
@@ -59,9 +62,11 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 export default function PrimarySearchAppBar() {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
-
+  const dispatch = useDispatch();
+  const [searchQuery, setSearchquery] = React.useState("");
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+  
 
   const handleProfileMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
@@ -80,48 +85,46 @@ export default function PrimarySearchAppBar() {
     setMobileMoreAnchorEl(event.currentTarget);
   };
 
-  const menuId = 'primary-search-account-menu';
+  const menuId = "primary-search-account-menu";
   const renderMenu = (
     <Menu
       anchorEl={anchorEl}
       anchorOrigin={{
-        vertical: 'top',
-        horizontal: 'right',
+        vertical: "top",
+        horizontal: "right",
       }}
       id={menuId}
       keepMounted
       transformOrigin={{
-        vertical: 'top',
-        horizontal: 'right',
+        vertical: "top",
+        horizontal: "right",
       }}
       open={isMenuOpen}
-      onClose={handleMenuClose}
-    >
+      onClose={handleMenuClose}>
       <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
       <MenuItem onClick={handleMenuClose}>My account</MenuItem>
     </Menu>
   );
 
-  const mobileMenuId = 'primary-search-account-menu-mobile';
+  const mobileMenuId = "primary-search-account-menu-mobile";
   const renderMobileMenu = (
     <Menu
       anchorEl={mobileMoreAnchorEl}
       anchorOrigin={{
-        vertical: 'top',
-        horizontal: 'right',
+        vertical: "top",
+        horizontal: "right",
       }}
       id={mobileMenuId}
       keepMounted
       transformOrigin={{
-        vertical: 'top',
-        horizontal: 'right',
+        vertical: "top",
+        horizontal: "right",
       }}
       open={isMobileMenuOpen}
-      onClose={handleMobileMenuClose}
-    >
+      onClose={handleMobileMenuClose}>
       <MenuItem>
-        <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-          <Badge badgeContent={4} color="error">
+        <IconButton size='large' aria-label='show 4 new mails' color='inherit'>
+          <Badge badgeContent={4} color='error'>
             <MailIcon />
           </Badge>
         </IconButton>
@@ -129,11 +132,10 @@ export default function PrimarySearchAppBar() {
       </MenuItem>
       <MenuItem>
         <IconButton
-          size="large"
-          aria-label="show 17 new notifications"
-          color="inherit"
-        >
-          <Badge badgeContent={17} color="error">
+          size='large'
+          aria-label='show 17 new notifications'
+          color='inherit'>
+          <Badge badgeContent={66} color='error'>
             <NotificationsIcon />
           </Badge>
         </IconButton>
@@ -141,12 +143,11 @@ export default function PrimarySearchAppBar() {
       </MenuItem>
       <MenuItem onClick={handleProfileMenuOpen}>
         <IconButton
-          size="large"
-          aria-label="account of current user"
-          aria-controls="primary-search-account-menu"
-          aria-haspopup="true"
-          color="inherit"
-        >
+          size='large'
+          aria-label='account of current user'
+          aria-controls='primary-search-account-menu'
+          aria-haspopup='true'
+          color='inherit'>
           <AccountCircle />
         </IconButton>
         <p>Profile</p>
@@ -154,59 +155,157 @@ export default function PrimarySearchAppBar() {
     </Menu>
   );
 
+ const handleChange=(event)=>{
+  dispatch(addCheckboxFilter(event.target.value))
+
+ }
+ 
+ const handleInputChange=(event)=>{
+  dispatch(searchFilters(event.target.value));
+  // console.log(event.target.value);
+ }
+
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static" style ={{ backgroundColor:'#002884'}}>
-        <Toolbar >
-          <Search>
+      <AppBar position='static'>
+        <Toolbar>
+          <Search
+           onChange={handleInputChange}
+          >
             <SearchIconWrapper>
               <SearchIcon />
             </SearchIconWrapper>
             <StyledInputBase
-              placeholder="Search…"
-              inputProps={{ 'aria-label': 'search' }}
+              placeholder='Search…'
+              inputProps={{ "aria-label": "search" }}
             />
           </Search>
           <Box sx={{ flexGrow: 1 }} />
-          <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-            <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-              <Badge badgeContent={4} color="error">
-                <MailIcon />
-              </Badge>
-            </IconButton>
+          <Box sx={{ display: { xs: "none", md: "flex" } }}>
+            {/* <Checkbox
+           checked={checked}
+           onChange={handleChange}
+           inputProps={{ 'aria-label': 'controlled' }}
+          //  label= Action
+           >
+           Action
+           </Checkbox> */}
+            <FormGroup>
+              <FormControlLabel
+                control={
+                  <Checkbox
+                     value={'Action'}
+                     onChange={handleChange}
+                     inputProps={{ "aria-label": "controlled" }}
+                    
+                  />
+                }
+                label='Action'
+              />
+            </FormGroup>
+            <FormGroup>
+              <FormControlLabel
+                control={
+                  <Checkbox
+                     value={'Sports'}
+                     onChange={handleChange}
+                    inputProps={{ "aria-label": "controlled" }}
+                  />
+                }
+                label='Sports'
+              />
+            </FormGroup>
+            <FormGroup>
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    //  checked={checked}
+                    value={'Adventure'}
+                     onChange={handleChange}
+                    inputProps={{ "aria-label": "controlled" }}
+                  />
+                }
+                label='Adventure'
+              />
+            </FormGroup>
+            <FormGroup>
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    //  checked={checked}
+                    value={'Drama'}
+                    onChange={handleChange}
+                    inputProps={{ "aria-label": "controlled" }}
+                  />
+                }
+                label='Drama'
+              />
+            </FormGroup>
+            <FormGroup>
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    //  checked={checked}
+                     value={'Comedy'}
+                     onChange={handleChange}
+                    inputProps={{ "aria-label": "controlled" }}
+                  />
+                }
+                label='Comedy'
+              />
+            </FormGroup>
+            <FormGroup>
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    //  checked={checked}
+                    value={'Avant'}
+                    onChange={handleChange}
+                    inputProps={{ "aria-label": "controlled" }}
+                  />
+                }
+                label='Avant Garde'
+              />
+            </FormGroup>
+
             <IconButton
-              size="large"
-              aria-label="show 17 new notifications"
-              color="inherit"
-            >
-              <Badge badgeContent={17} color="error">
+              size='large'
+              aria-label='show 4 new mails'
+              color='inherit'
+              onClick={()=> dispatch(resetFilters(""))}
+              >
+              <FilterAltOffIcon />
+            </IconButton>
+            {/* <IconButton
+              size='large'
+              aria-label='show 17 new notifications'
+              color='inherit'>
+              <Badge badgeContent={17} color='error'>
                 <NotificationsIcon />
               </Badge>
-            </IconButton>
-            <IconButton
-              size="large"
-              edge="end"
-              aria-label="account of current user"
+            </IconButton> */}
+            {/* <IconButton
+              size='large'
+              edge='end'
+              aria-label='account of current user'
               aria-controls={menuId}
-              aria-haspopup="true"
+              aria-haspopup='true'
               onClick={handleProfileMenuOpen}
-              color="inherit"
-            >
+              color='inherit'>
               <AccountCircle />
-            </IconButton>
+            </IconButton> */}
           </Box>
-          <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
+          {/* <Box sx={{ display: { xs: "flex", md: "none" } }}>
             <IconButton
-              size="large"
-              aria-label="show more"
+              size='large'
+              aria-label='show more'
               aria-controls={mobileMenuId}
-              aria-haspopup="true"
+              aria-haspopup='true'
               onClick={handleMobileMenuOpen}
-              color="inherit"
-            >
+              color='inherit'>
               <MoreIcon />
             </IconButton>
-          </Box>
+          </Box> */}
         </Toolbar>
       </AppBar>
       {renderMobileMenu}
