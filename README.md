@@ -1,4 +1,4 @@
-# Anime Site given as Task
+# Anime Site Demo
 
 Link: <a>https://anime-task-site.netlify.app/</a>
 Features- 
